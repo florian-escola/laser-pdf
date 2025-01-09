@@ -23,6 +23,8 @@ pub fn line(layer: &mut Content, pos: (f32, f32), width: f32, thickness: f32) {
 }
 
 pub fn mm_to_pt(mm: f32) -> f32 {
+    // (mm as f64 * 2.834_646) as f32
+    // (mm as f64 * 72. / 25.4) as f32
     mm * 72. / 25.4
 }
 

@@ -67,7 +67,7 @@ impl Element for Rectangle {
         if let Some(color) = self.fill {
             let (color, _) = u32_to_color_and_alpha(color);
 
-            layer.set_fill_color(color);
+            layer.set_fill_rgb(color[0], color[1], color[2]);
         }
 
         if let Some((thickness, color)) = self.outline {
@@ -75,7 +75,7 @@ impl Element for Rectangle {
 
             layer
                 .set_line_width(thickness as f32)
-                .set_stroke_color(color);
+                .set_stroke_rgb(color[0], color[1], color[2]);
         }
 
         if let Some(ext_graphics) = resource_id {
@@ -83,10 +83,10 @@ impl Element for Rectangle {
         }
 
         layer.rect(
-            ctx.location.pos.0 as f32 + extra_outline_offset,
-            (ctx.location.pos.1 - self.size.1) as f32 - extra_outline_offset,
-            self.size.0 as f32,
-            self.size.1 as f32,
+            mm_to_pt(ctx.location.pos.0 as f32 + extra_outline_offset),
+            mm_to_pt((ctx.location.pos.1 - self.size.1) as f32 - extra_outline_offset),
+            mm_to_pt(self.size.0 as f32),
+            mm_to_pt(self.size.1 as f32),
         );
 
         match (self.fill.is_some(), self.outline.is_some()) {

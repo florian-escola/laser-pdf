@@ -63,15 +63,15 @@ pub enum LineCapStyle {
     ProjectingSquare,
 }
 
-// impl Into<printpdf::LineCapStyle> for LineCapStyle {
-//     fn into(self) -> printpdf::LineCapStyle {
-//         match self {
-//             LineCapStyle::Butt => printpdf::LineCapStyle::Butt,
-//             LineCapStyle::Round => printpdf::LineCapStyle::Round,
-//             LineCapStyle::ProjectingSquare => printpdf::LineCapStyle::ProjectingSquare,
-//         }
-//     }
-// }
+impl Into<pdf_writer::types::LineCapStyle> for LineCapStyle {
+    fn into(self) -> pdf_writer::types::LineCapStyle {
+        match self {
+            LineCapStyle::Butt => pdf_writer::types::LineCapStyle::ButtCap,
+            LineCapStyle::Round => pdf_writer::types::LineCapStyle::RoundCap,
+            LineCapStyle::ProjectingSquare => pdf_writer::types::LineCapStyle::ProjectingSquareCap,
+        }
+    }
+}
 
 /// ISO 32000-1:2008 8.4.3.6
 ///
@@ -87,20 +87,6 @@ pub struct LineDashPattern {
     /// alternating dashes and gaps; the numbers shall be nonnegative and not
     /// all zero.
     pub dashes: [u16; 2],
-}
-
-impl Into<printpdf::LineDashPattern> for LineDashPattern {
-    fn into(self) -> printpdf::LineDashPattern {
-        printpdf::LineDashPattern {
-            offset: self.offset as i64,
-            dash_1: Some(self.dashes[0] as i64),
-            gap_1: Some(self.dashes[1] as i64),
-            dash_2: None,
-            gap_2: None,
-            dash_3: None,
-            gap_3: None,
-        }
-    }
 }
 
 #[derive(Copy, Clone, Serialize, Deserialize)]

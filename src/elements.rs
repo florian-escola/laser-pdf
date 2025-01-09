@@ -25,7 +25,7 @@ pub mod rotate;
 pub mod row;
 // pub mod shrink_to_fit;
 pub mod stack;
-// pub mod styled_box;
+pub mod styled_box;
 // pub mod svg;
 // pub mod table_row;
 pub mod text;
