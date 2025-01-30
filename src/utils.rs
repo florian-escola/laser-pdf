@@ -17,8 +17,8 @@ pub fn line(layer: &mut Content, pos: (f32, f32), width: f32, thickness: f32) {
     // TODO: mm_to_pt
     layer
         .set_line_width(thickness)
-        .move_to(pos.0, pos.1)
-        .line_to(pos.0 + width, pos.1)
+        .move_to(mm_to_pt(pos.0), mm_to_pt(pos.1))
+        .line_to(mm_to_pt(pos.0 + width), mm_to_pt(pos.1))
         .stroke();
 }
 
@@ -77,6 +77,11 @@ pub fn add_optional_size_with_gap(a: Option<f32>, b: Option<f32>, gap: f32) -> O
         (None, Some(x)) | (Some(x), None) => Some(x),
         (Some(a), Some(b)) => Some(a + gap + b),
     }
+}
+
+pub fn set_fill_color(layer: &mut Content, color: u32) {
+    let (color, _) = u32_to_color_and_alpha(color);
+    layer.set_stroke_rgb(color[0], color[1], color[2]);
 }
 
 pub fn scale(scale: f32) -> [f32; 6] {

@@ -71,11 +71,9 @@ impl Element for Rectangle {
         }
 
         if let Some((thickness, color)) = self.outline {
-            let (color, _) = u32_to_color_and_alpha(color);
+            layer.set_line_width(thickness as f32);
 
-            layer
-                .set_line_width(thickness as f32)
-                .set_stroke_rgb(color[0], color[1], color[2]);
+            set_fill_color(layer, color);
         }
 
         if let Some(ext_graphics) = resource_id {
